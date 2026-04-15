@@ -151,10 +151,10 @@ class QueriesListener implements LaravelListener
      */
     protected function quote(QueryExecuted $event, $binding)
     {
-        if (is_int($binding) || is_float($binding) || is_object($binding)) {
+        if (is_int($binding) || is_float($binding) || is_object($binding) || is_null($binding)) {
             return $binding;
         }
 
-        return $event->connection->getPdo()->quote($binding);
+        return $event->connection->getPdo()->quote((string) $binding);
     }
 }
